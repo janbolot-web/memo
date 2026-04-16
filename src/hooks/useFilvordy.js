@@ -20,13 +20,22 @@ const DIRECTIONS = [
 ];
 
 const ALPHABET = 'АБВГДЕЁЖЗИЙКЛМНҢОӨПРСТУҮФХЦЧШЩЪЫЬЭЮЯ';
-const rnd = (n) => Math.floor(Math.random() * n);
+
+let currentSeed = 42;
+function seededRandom() {
+  currentSeed = (currentSeed * 16807) % 2147483647;
+  return (currentSeed - 1) / 2147483646;
+}
+
+const rnd = (n) => Math.floor(seededRandom() * n);
 
 function randomLetter() {
   return ALPHABET[rnd(ALPHABET.length)];
 }
 
 function generateGrid(words, rows, cols) {
+  currentSeed = 12345; // Fixed seed for constant level generation
+  
   const grid = Array.from({ length: rows }, () =>
     Array.from({ length: cols }, () => ({ letter: '', wordIndex: -1 }))
   );
