@@ -101,6 +101,7 @@
 /* ===== BOARD STYLES ===== */
 .game-board {
   display: grid;
+  grid-template-columns: repeat(var(--mobile-cols, var(--board-cols, 4)), 1fr);
   gap: clamp(8px, 1.5vw, 14px);
   width: 100%;
   max-width: 700px;
@@ -532,6 +533,7 @@
 
 .game-board-container {
   flex: 1;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1115,13 +1117,14 @@
   
   /* Memo Game mobile refinements */
   .game-board {
-    grid-template-columns: repeat(4, 1fr) !important;
+    --mobile-cols: 4;
   }
   
   .game-board-container {
     align-items: flex-start;
     padding-top: 70px;
     padding-bottom: 20px;
+    width: 100%;
   }
   .stats-bar {
     gap: 8px;
