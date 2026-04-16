@@ -493,7 +493,7 @@
 }
 
 .menu-toggle-btn {
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 20px;
   z-index: 80;
@@ -1114,6 +1114,15 @@
   }
   
   /* Memo Game mobile refinements */
+  .game-board {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  
+  .game-board-container {
+    align-items: flex-start;
+    padding-top: 70px;
+    padding-bottom: 20px;
+  }
   .stats-bar {
     gap: 8px;
     flex-wrap: wrap;
