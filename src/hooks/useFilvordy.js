@@ -5,7 +5,7 @@ export const PUZZLE_SETS = {
   kyrgyz_particles: {
     label: 'Бөлүкчөлөр',
     icon: '🇰🇬',
-    words: ['ГАНА', 'ООБА', 'ДАЛ', 'ЫЯ', 'АБДАН', 'ЭН', 'КУДУ', 'ЭЛЕ', 'ТАК', 'ТУРСУН'],
+    words: ['ГАНА', 'ООБА', 'ДАЛ', 'ЫЯ', 'АБДАН', 'ЭҢ', 'КУДУ', 'ЭЛЕ', 'ТАК', 'ТУРСУН'],
   },
   kyrgyz_nature: {
     label: 'Табият',
@@ -73,21 +73,21 @@ function generateGrid(words, rows, cols) {
     for (let wi = 0; wi < words.length; wi++) {
       const word = words[wi].toUpperCase();
       const revWord = [...word].reverse().join('');
-      
+
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           for (const [dr, dc] of DIRECTIONS) {
             let matchesStr = '';
             let randomCells = [];
-            
+
             for (let i = 0; i < word.length; i++) {
               const rr = r + dr * i;
               const cc = c + dc * i;
               if (rr < 0 || rr >= rows || cc < 0 || cc >= cols) break;
               matchesStr += grid[rr][cc].letter;
-              if (grid[rr][cc].isRandom) randomCells.push({r: rr, c: cc});
+              if (grid[rr][cc].isRandom) randomCells.push({ r: rr, c: cc });
             }
-            
+
             if ((matchesStr === word || matchesStr === revWord) && randomCells.length > 0) {
               hasAccidental = true;
               const cellToScramble = randomCells[0];
@@ -133,22 +133,22 @@ export function useFilvordy(rows = 14, cols = 16) {
   const [words, setWords] = useState([...new Set(PUZZLE_SETS.kyrgyz_particles.words)]);
   const [foundWords, setFoundWords] = useState(new Set());
   const [dragStart, setDragStart] = useState(null);   // {r,c} – for render
-  const [dragEnd, setDragEnd]     = useState(null);   // {r,c} – for render
+  const [dragEnd, setDragEnd] = useState(null);   // {r,c} – for render
   const [flashError, setFlashError] = useState(false);
   const [isWon, setIsWon] = useState(false);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
   // Mutable refs – always up-to-date, safe inside event handlers
-  const isDragging   = useRef(false);
-  const startRef     = useRef(null);
-  const endRef       = useRef(null);
-  const gridRef      = useRef(grid);
-  const wordsRef     = useRef(words);
-  const foundRef     = useRef(foundWords);
-  gridRef.current    = grid;
-  wordsRef.current   = words;
-  foundRef.current   = foundWords;
+  const isDragging = useRef(false);
+  const startRef = useRef(null);
+  const endRef = useRef(null);
+  const gridRef = useRef(grid);
+  const wordsRef = useRef(words);
+  const foundRef = useRef(foundWords);
+  gridRef.current = grid;
+  wordsRef.current = words;
+  foundRef.current = foundWords;
 
   const timerRef = useRef(null);
   useEffect(() => {

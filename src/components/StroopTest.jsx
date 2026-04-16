@@ -61,26 +61,21 @@ export default function StroopTest({ onBack }) {
         </header>
 
         <div className="stroop-grid" style={{ flex: 1, alignContent: 'center', margin: '0', gap: '8px' }}>
-          {items.map((item) => {
-            // Apply text-stroke/shadow for Black so it is visible on dark background
-            const isBlack = item.color === '#000000';
-            return (
-              <div
-                key={item.id}
-                className="stroop-word"
-                style={{ 
-                  color: item.color, 
-                  fontSize: 'clamp(1rem, 2.5vw, 1.8rem)', 
-                  padding: '6px 14px', 
-                  margin: '4px',
-                  lineHeight: '1.2',
-                  textShadow: isBlack ? '1px 1px 0 rgba(255,255,255,0.5), -1px -1px 0 rgba(255,255,255,0.5), 1px -1px 0 rgba(255,255,255,0.5), -1px 1px 0 rgba(255,255,255,0.5)' : 'none'
-                }}
-              >
-                {item.word}
-              </div>
-            );
-          })}
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="stroop-word"
+              style={{ 
+                color: item.color, 
+                fontSize: 'clamp(1rem, 2.5vw, 1.8rem)', 
+                padding: '6px 14px', 
+                margin: '4px',
+                lineHeight: '1.2'
+              }}
+            >
+              {item.word}
+            </div>
+          ))}
         </div>
 
         <div className="controls-row" style={{ flexShrink: 0, marginTop: '20px', justifyContent: 'center' }}>

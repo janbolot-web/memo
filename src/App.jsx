@@ -15,6 +15,7 @@ import StroopTest from './components/StroopTest';
 // ---- Memo Game wrapper ----
 function MemoGame({ onBack }) {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const {
     cards, moves, matches, totalPairs,
@@ -22,7 +23,7 @@ function MemoGame({ onBack }) {
     difficulty, difficulties, bestScores,
     categories, category, setCategory, saveCustomCategory,
     flipCard, newGame, setDifficulty, cols,
-  } = useMemoryGame('easy');
+  } = useMemoryGame('hard', 'kyrgyz2');
 
   const handleDiffSelect = (d) => {
     setDifficulty(d);
@@ -33,8 +34,17 @@ function MemoGame({ onBack }) {
   return (
     <div className="game-container">
       <div className="game-layout">
-        {/* Sidebar */}
-        <aside className="game-sidebar">
+        {/* Floating Hamburger Menu Button */}
+        <button className="menu-toggle-btn" onClick={() => setIsMenuOpen(true)}>
+          ☰ Меню
+        </button>
+
+        {/* Menu Overlay */}
+        <div className={`menu-overlay ${isMenuOpen ? 'visible' : ''}`} onClick={() => setIsMenuOpen(false)}></div>
+
+        {/* Sidebar as Drawer */}
+        <aside className={`game-sidebar ${isMenuOpen ? 'open' : ''}`}>
+          <button className="close-menu-btn" onClick={() => setIsMenuOpen(false)}>✕</button>
           <header className="game-header">
             <div className="game-logo">
               <span className="game-logo-icon">🃏</span>
@@ -65,11 +75,14 @@ function MemoGame({ onBack }) {
           />
 
           <div className="controls-row">
-            <button className="ctrl-btn" onClick={() => newGame()}>
+            <button className="ctrl-btn" onClick={() => {
+              newGame();
+              setIsMenuOpen(false);
+            }}>
               🔁 Заново
             </button>
             <button className="ctrl-btn" onClick={onBack}>
-              🏠 Меню
+              🏠 Выход
             </button>
           </div>
 
